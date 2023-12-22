@@ -10,26 +10,18 @@ threagile_version: 1.0.0
 #
 # You might also want to try the REST API when running in server mode...
 
+title: AWS Infrastructure
 
-
-title: Example Application
-
-date: 2020-11-11
+date: 2023-12-22
 
 author:
-  name: John Doe
-  homepage: www.example.com
-
-
-
+  name: Shashank Sanap
+  homepage: https://github.com/Shashanksanap99/
 
 management_summary_comment: >
   Just some <b>more</b> custom summary possible here...
 
 business_criticality: important # values: archive, operational, important, critical, mission-critical
-
-
-
 
 business_overview:
   description: Some more <i>demo text</i> here and even images...
@@ -45,14 +37,12 @@ technical_overview:
 #    - custom-image-2.png: Some dummy image 2
 
 
-
 questions: # simply use "" as answer to signal "unanswered"
   How are the admin clients managed/protected against compromise?: ""
   How are the development clients managed/protected against compromise?: >
     Managed by XYZ
   How are the build pipeline components managed/protected against compromise?: >
     Managed by XYZ
-
 
 
 abuse_cases:
@@ -109,8 +99,6 @@ tags_available:
   - aws
   - aws:ec2
   - aws:s3
-
-
 
 
 data_assets:
@@ -275,10 +263,6 @@ data_assets:
     availability: critical # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
       Data for customizing of the DB system, which might include full database dumps.
-
-
-
-
 
 
 technical_assets:
@@ -1151,9 +1135,6 @@ technical_assets:
         data_assets_received: # sequence of IDs to reference
 
 
-
-
-
 trust_boundaries:
 
 
@@ -1205,7 +1186,6 @@ trust_boundaries:
       - ldap-auth-server
     trust_boundaries_nested: # sequence of IDs to reference
 
-
   Dev Network:
     id: dev-network
     description: Development Network
@@ -1219,11 +1199,7 @@ trust_boundaries:
     trust_boundaries_nested: # sequence of IDs to reference
 
 
-
-
-
 shared_runtimes:
-
 
   WebApp and Backoffice Virtualization:
     id: webapp-virtualization
@@ -1236,8 +1212,6 @@ shared_runtimes:
       - erp-system
       - contract-fileserver
       - sql-database
-
-
 
 
 individual_risk_categories: # used for adding custom manually identified risks
@@ -1284,8 +1258,6 @@ individual_risk_categories: # used for adding custom manually identified risks
         most_relevant_trust_boundary:
         most_relevant_shared_runtime:
 
-
-
 # NOTE:
 # For risk tracking each risk-id needs to be defined (the string with the @ sign in it). These unique risk IDs
 # are visible in the PDF report (the small grey string under each risk), the Excel (column "ID"), as well as the JSON responses.
@@ -1294,6 +1266,7 @@ individual_risk_categories: # used for adding custom manually identified risks
 # Using wildcards (the * sign) for parts delimited by @ signs allows to handle groups of certain risks at once. Best is to lookup the IDs
 # to use in the created Excel file. Alternatively a model macro "seed-risk-tracking" is available that helps in initially
 # seeding the risk tracking part here based on already identified and not yet handled risks.
+
 risk_tracking:
 
   untrusted-deserialization@erp-system: # wildcards "*" between the @ characters are possible
@@ -1301,44 +1274,42 @@ risk_tracking:
     justification: Risk accepted as tolerable
     ticket: XYZ-1234
     date: 2020-01-04
-    checked_by: John Doe
+    checked_by: Shashank Sanap
 
   ldap-injection@*@ldap-auth-server@*: # wildcards "*" between the @ characters are possible
     status: mitigated # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were implemented and checked
     ticket: XYZ-5678
     date: 2020-01-05
-    checked_by: John Doe
+    checked_by: Shashank Sanap
 
   unencrypted-asset@*: # wildcards "*" between the @ characters are possible
     status: mitigated # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were implemented and checked
     ticket: XYZ-1234
     date: 2020-01-04
-    checked_by: John Doe
+    checked_by: Shashank Sanap
 
   missing-authentication-second-factor@*@*@*: # wildcards "*" between the @ characters are possible
     status: mitigated # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were implemented and checked
     ticket: XYZ-1234
     date: 2020-01-04
-    checked_by: John Doe
+    checked_by: Shashank Sanap
 
   missing-hardening@*: # wildcards "*" between the @ characters are possible
     status: mitigated # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were implemented and checked
     ticket: XYZ-1234
     date: 2020-01-04
-    checked_by: John Doe
+    checked_by: Shashank Sanap
 
   dos-risky-access-across-trust-boundary@*@*@*: # wildcards "*" between the @ characters are possible
     status: in-progress # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures are being implemented and checked
     ticket: XYZ-1234
     date: 2020-01-04
-    checked_by: John Doe
-
-
+    checked_by: Shashank Sanap
 
 #diagram_tweak_edge_layout: spline # values: spline, polyline, false, ortho (this suppresses edge labels), curved (this suppresses edge labels and can cause problems with edges)
 

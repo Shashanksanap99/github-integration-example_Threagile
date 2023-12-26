@@ -1263,42 +1263,42 @@ risk_tracking:
   untrusted-deserialization@erp-system: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: not needed for this time
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   ldap-injection@*@ldap-auth-server@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were unchecked
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   unencrypted-asset@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were unchecked
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   missing-authentication-second-factor@*@*@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were unchecked
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   missing-hardening@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were implemented and checked
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   dos-risky-access-across-trust-boundary@*@*@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures are being implemented and checked
-    ticket: inprocess-1
+    ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 

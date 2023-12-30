@@ -11,24 +11,23 @@ author:
   homepage: https://github.com/Shashanksanap99/
 
 management_summary_comment: >
-  AWS CloudFormation template facilitates the creation of a VPC with defined public and private subnets across multiple availability zones. 
-  In provides both public and private subnets within various availability zones. Route tables are used to manage traffic, an internet gateway is used for external access, and different security groups are used to control inbound and outbound traffic.
-  One database instance, an application server in the private subnet, and a Linux bastion host on the public subnet for secure SSH access.
+  AWS CloudFormation facilitates the creation of a VPC with defined public and private subnets across multiple availability zones. 
+  
 
 business_criticality: important # values: archive, operational, important, critical, mission-critical
 
 business_overview:
   description: A scalable and secure network is offered by AWS infrastructure on Amazon Web Services (AWS).It guarantees a robust architecture strong enough to support important parts like databases and application servers. This architecture serves companies looking for a stable, flexible, and secure cloud-based environment to support their operations by enabling dependable application hosting and effective database management.
   images:
-#    - custom-image-1.png: Some dummy image 1
-#    - custom-image-2.png: Some dummy image 2
 
 
 technical_overview:
-  description: Some more <i>demo text</i> here and even images...
+  description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. 
+The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.
+Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC, 
+and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access, 
+an application server in the private subnet, and a database instance with security group.
   images:
-#    - custom-image-1.png: Some dummy image 1
-#    - custom-image-2.png: Some dummy image 2
 
 
 questions: # simply use "" as answer to signal "unanswered"

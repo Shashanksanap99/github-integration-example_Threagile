@@ -25,20 +25,20 @@ technical_overview:
   description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC,and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access,an application server in the private subnet, and a database instance with security group.
   images:
 
-# questions: # simply use "" as answer to signal "unanswered"
-#   How are the admin clients managed/protected against compromise?: ""
-#   How are the development clients managed/protected against compromise?: >
-#     Managed by XYZ
-#   How are the build pipeline components managed/protected against compromise?: >
-#     Managed by XYZ
+questions: # Can add custom questions Arises during the process
+  How are the admin clients managed/protected against compromise?: ""
+  How are the development clients managed/protected against compromise?: >
+    Managed by XYZ
+  How are the build pipeline components managed/protected against compromise?: >
+    Managed by XYZ
 
 
 abuse_cases:
   Denial-of-Service: >
     As a hacker I want to disturb the functionality of the backend system in order to cause indirect
     financial damage via unusable features.
-  CPU-Cycle Theft: >
-    As a hacker I want to steal CPU cycles in order to transform them into money via installed crypto currency miners.
+  # CPU-Cycle Theft: >
+  #   As a hacker I want to steal CPU cycles in order to transform them into money via installed crypto currency miners.
   Ransomware: >
     As a hacker I want to encrypt the storage and file systems in order to demand ransom.
   Identity Theft: >
@@ -46,8 +46,8 @@ abuse_cases:
   PII Theft: >
     As a hacker I want to steal PII (Personally Identifiable Information) data in order to blackmail the company and/or damage
     their repudiation by publishing them.
-  ERP-System Compromise: >
-    As a hacker I want to access the ERP-System in order to steal/modify sensitive business data.
+  # ERP-System Compromise: >
+  #   As a hacker I want to access the ERP-System in order to steal/modify sensitive business data.
   Database Compromise: >
     As a hacker I want to access the database backend of the ERP-System in order to steal/modify sensitive
     business data.

@@ -18,7 +18,7 @@ management_summary_comment: >
 business_criticality: important # values: archive, operational, important, critical, mission-critical
 
 business_overview:
-  description: Some more <i>demo text</i> here and even images...
+  description: A scalable and secure network is offered by AWS infrastructure on Amazon Web Services (AWS).It guarantees a robust architecture strong enough to support important parts like databases and application servers. This architecture serves companies looking for a stable, flexible, and secure cloud-based environment to support their operations by enabling dependable application hosting and effective database management.
   images:
 #    - custom-image-1.png: Some dummy image 1
 #    - custom-image-2.png: Some dummy image 2

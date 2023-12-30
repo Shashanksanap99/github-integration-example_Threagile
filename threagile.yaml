@@ -22,13 +22,8 @@ business_overview:
 
 
 technical_overview:
-  description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. 
-The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.
-Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC, 
-and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access, 
-an application server in the private subnet, and a database instance with security group.
+  description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC,and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access,an application server in the private subnet, and a database instance with security group.
   images:
-
 
 questions: # simply use "" as answer to signal "unanswered"
   How are the admin clients managed/protected against compromise?: ""

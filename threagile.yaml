@@ -11,7 +11,9 @@ author:
   homepage: https://github.com/Shashanksanap99/
 
 management_summary_comment: >
-  Just some <b>more</b> custom summary possible here...
+  AWS CloudFormation template facilitates the creation of a VPC with defined public and private subnets across multiple availability zones. 
+  In provides both public and private subnets within various availability zones. Route tables are used to manage traffic, an internet gateway is used for external access, and different security groups are used to control inbound and outbound traffic.
+  One database instance, an application server in the private subnet, and a Linux bastion host on the public subnet for secure SSH access.
 
 business_criticality: important # values: archive, operational, important, critical, mission-critical
 

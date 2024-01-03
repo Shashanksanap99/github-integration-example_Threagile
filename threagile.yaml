@@ -1173,7 +1173,7 @@ trust_boundaries:
     type: network-on-prem # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
-      - jenkins-buildserver
+      # - jenkins-buildserver
       - git-repo
       - backend-admin-client
       - backoffice-client

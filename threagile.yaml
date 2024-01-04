@@ -305,10 +305,10 @@ technical_assets:
         #diagram_tweak_constraint: false
 
 
-  Backoffice Client:
-    id: backoffice-client
+  App Server:
+    id: app-server
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: Backoffice client
+    description: App Server
     type: external-entity # values: external-entity, process, datastore
     usage: business # values: business, devops
     used_as_client_by_human: true
@@ -969,23 +969,6 @@ technical_assets:
           - server-application-code
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
-      # Jenkins Web-UI Access:
-      #   target: jenkins-buildserver
-      #   description: Link to the Jenkins build server
-      #   protocol: https # values: see help
-      #   authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-      #   authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-      #   tags:
-      #   vpn: false
-      #   ip_filtered: false
-      #   readonly: false
-      #   usage: devops # values: business, devops
-      #   data_assets_sent: # sequence of IDs to reference
-      #     - build-job-config
-      #   data_assets_received: # sequence of IDs to reference
-      #     - build-job-config
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
 
 
   Git Repository:
@@ -1027,7 +1010,6 @@ technical_assets:
 
 trust_boundaries:
 
-
   Public Instance:
     id: Public-Instance
     description: Public Instance
@@ -1037,7 +1019,6 @@ trust_boundaries:
       - Public-Subnet
       - Linux-Bastion-Host
     trust_boundaries_nested: # sequence of IDs to reference
-
 
   Private Instance:
     id: Private-Instance
@@ -1051,7 +1032,6 @@ trust_boundaries:
       - sql-database
     trust_boundaries_nested: # sequence of IDs to reference
 
-
   Application Network:
     id: application-network
     description: Virtual-Private-Cloud
@@ -1063,12 +1043,11 @@ trust_boundaries:
     trust_boundaries_nested: # sequence of IDs to reference
       - Public-Instance
       - Private-Instance
-      - auth-env
+      - public-route-table
 
-
-  Auth Handling Environment:
-    id: auth-env
-    description: Auth Handling Environment
+  Public Route Table:
+    id: public-route-table
+    description: Public Route Table
     type: execution-environment # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
@@ -1082,12 +1061,10 @@ trust_boundaries:
     type: network-on-prem # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
-      # - jenkins-buildserver
       - git-repo
       - backend-admin-client
-      - backoffice-client
+      - app-server
     trust_boundaries_nested: # sequence of IDs to reference
-
 
 shared_runtimes:
 

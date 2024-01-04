@@ -597,8 +597,8 @@ technical_assets:
         #diagram_tweak_weight: 5
         #diagram_tweak_constraint: false
       Auth Credential Check Traffic:
-        target: identity-provider
-        description: Link to the identity provider server
+        target: public-route-1
+        description: Link to the Public Route 1 server
         protocol: https # values: see help
         authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
         authorization: technical-user # values: none, technical-user, enduser-identity-propagation
@@ -612,17 +612,17 @@ technical_assets:
         data_assets_received: # sequence of IDs to reference
 
 
-  Identity Provider:
-    id: identity-provider
+  Public Route 1:
+    id: public-route-1
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: Identity provider server
+    description: Public Route 1
     type: process # values: external-entity, process, datastore
     usage: business # values: business, devops
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
     size: component # values: system, service, application, component
-    technology: identity-provider # values: see help
+    technology: public-route-1 # values: see help
     tags:
       - linux
       - jboss
@@ -1048,7 +1048,7 @@ trust_boundaries:
     type: execution-environment # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
-      - identity-provider
+      - public-route-1
       - ldap-auth-server
     trust_boundaries_nested: # sequence of IDs to reference
 

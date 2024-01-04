@@ -145,7 +145,7 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: critical # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Data used and/or generated during unrelated other usecases of the ERP-system (when used also by Company XYZ for
+      Data used and/or generated during unrelated other usecases of the Private-Subnet (when used also by Company XYZ for
       internal non-customer-portal-related stuff).
 
 
@@ -337,7 +337,7 @@ technical_assets:
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
       ERP Internal Access:
-        target: erp-system
+        target: Private-Subnet
         description: Link to the ERP system
         protocol: https # values: see help
         authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -404,7 +404,7 @@ technical_assets:
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
       ERP Web Access:
-        target: erp-system
+        target: Private-Subnet
         description: Link to the ERP system (Web)
         protocol: https # values: see help
         authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -495,7 +495,7 @@ technical_assets:
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
       Web Application Traffic:
-        target: apache-webserver
+        target: Public-Subnet
         description: Link to the web server
         protocol: http # values: see help
         authentication: session-id # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -533,10 +533,10 @@ technical_assets:
         #diagram_tweak_constraint: false
 
 
-  Apache Webserver:
-    id: apache-webserver
+  Public Subnet:
+    id: Public-Subnet
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: Apache Webserver hosting the API code and client-side code
+    description: Public Subnet hosting the client-side code
     type: process # values: external-entity, process, datastore
     usage: business # values: business, devops
     used_as_client_by_human: false
@@ -575,7 +575,7 @@ technical_assets:
       - file
     communication_links:
       ERP System Traffic:
-        target: erp-system
+        target: Private-Subnet
         description: Link to the ERP system
         protocol: https # values: see help
         authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -744,8 +744,8 @@ technical_assets:
         #diagram_tweak_constraint: false
 
 
-  Backoffice ERP System:
-    id: erp-system
+  Private-Subnet:
+    id: Private-Subnet
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: ERP system
     type: process # values: external-entity, process, datastore
@@ -1025,97 +1025,6 @@ technical_assets:
       - file
     communication_links:
 
-
-  # Jenkins Buildserver:
-  #   id: jenkins-buildserver
-  #   #diagram_tweak_order: 99 # affects left to right positioning (only within a trust boundary)
-  #   description: Jenkins buildserver
-  #   type: process # values: external-entity, process, datastore
-  #   usage: devops # values: business, devops
-  #   used_as_client_by_human: false
-  #   out_of_scope: false
-  #   justification_out_of_scope:
-  #   size: system # values: system, service, application, component
-  #   technology: build-pipeline # values: see help
-  #   tags:
-  #     - linux
-  #     - jenkins
-  #   internet: false
-  #   machine: virtual # values: physical, virtual, container, serverless
-  #   encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
-  #   owner: Company ABC
-  #   confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-  #   integrity: critical # values: archive, operational, important, critical, mission-critical
-  #   availability: important # values: archive, operational, important, critical, mission-critical
-  #   justification_cia_rating: >
-  #     The build pipeline might contain sensitive configuration values like backend credentials, certificates etc. and is
-  #     therefore rated as confidential. The integrity and availability is rated as critical and important due to the risk
-  #     of reputation damage and application update unavailability when the build pipeline is compromised.
-  #   multi_tenant: true
-  #   redundant: false
-  #   custom_developed_parts: false
-  #   data_assets_processed: # sequence of IDs to reference
-  #     - build-job-config
-  #     - client-application-code
-  #     - server-application-code
-  #     - marketing-material
-  #   data_assets_stored: # sequence of IDs to reference
-  #     - build-job-config
-  #     - client-application-code
-  #     - server-application-code
-  #     - marketing-material
-  #   data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
-  #     - file
-  #     - serialization
-  #   communication_links:
-  #     Git Repo Code Read Access:
-  #       target: git-repo
-  #       description: Link to the Git repository server
-  #       protocol: ssh # values: see help
-  #       authentication: client-certificate # values: none, credentials, session-id, token, client-certificate, two-factor
-  #       authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-  #       tags:
-  #       vpn: false
-  #       ip_filtered: false
-  #       readonly: true
-  #       usage: devops # values: business, devops
-  #       data_assets_sent: # sequence of IDs to reference
-  #       data_assets_received: # sequence of IDs to reference
-  #         - client-application-code
-  #         - server-application-code
-  #       #diagram_tweak_weight: 1
-  #       #diagram_tweak_constraint: false
-  #     Application Deployment:
-  #       target: apache-webserver
-  #       description: Link to the Apache webserver
-  #       protocol: ssh # values: see help
-  #       authentication: client-certificate # values: none, credentials, session-id, token, client-certificate, two-factor
-  #       authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-  #       tags:
-  #       vpn: false
-  #       ip_filtered: false
-  #       readonly: false
-  #       usage: devops # values: business, devops
-  #       data_assets_sent: # sequence of IDs to reference
-  #         - client-application-code
-  #         - server-application-code
-  #       data_assets_received: # sequence of IDs to reference
-  #     CMS Updates:
-  #       target: Linux-Bastion-Host
-  #       description: Link to the CMS
-  #       protocol: ssh # values: see help
-  #       authentication: client-certificate # values: none, credentials, session-id, token, client-certificate, two-factor
-  #       authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-  #       tags:
-  #       vpn: false
-  #       ip_filtered: false
-  #       readonly: false
-  #       usage: devops # values: business, devops
-  #       data_assets_sent: # sequence of IDs to reference
-  #         - marketing-material
-  #       data_assets_received: # sequence of IDs to reference
-
-
 trust_boundaries:
 
 
@@ -1125,7 +1034,7 @@ trust_boundaries:
     type: network-cloud-security-group # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
-      - apache-webserver
+      - Public-Subnet
       - Linux-Bastion-Host
     trust_boundaries_nested: # sequence of IDs to reference
 
@@ -1137,7 +1046,7 @@ trust_boundaries:
     tags:
       - some-erp
     technical_assets_inside: # sequence of IDs to reference
-      - erp-system
+      - Private-Subnet
       # - contract-fileserver
       - sql-database
     trust_boundaries_nested: # sequence of IDs to reference
@@ -1188,9 +1097,9 @@ shared_runtimes:
     tags:
       - vmware
     technical_assets_running: # sequence of IDs to reference
-      - apache-webserver
+      - Public-Subnet
       - Linux-Bastion-Host
-      - erp-system
+      - Private-Subnet
       # - contract-fileserver
       - sql-database
 
@@ -1250,7 +1159,7 @@ individual_risk_categories: # used for adding custom manually identified risks
 
 risk_tracking:
 
-  untrusted-deserialization@erp-system: # wildcards "*" between the @ characters are possible
+  untrusted-deserialization@Private-Subnet: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: not needed for this time
     ticket: a-1

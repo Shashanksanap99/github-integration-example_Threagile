@@ -309,7 +309,6 @@ technical_assets:
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
 
-
   Internet Gateway:
     id: internet-gateway
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
@@ -356,26 +355,6 @@ technical_assets:
           - erp-logs
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
-      # DB Update Access:
-      #   target: sql-database
-      #   description: Link to the database (JDBC tunneled via SSH)
-      #   protocol: ssh # values: see help
-      #   authentication: client-certificate # values: none, credentials, session-id, token, client-certificate, two-factor
-      #   authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-      #   tags:
-      #   vpn: false
-      #   ip_filtered: false
-      #   readonly: false
-      #   usage: business # values: business, devops
-      #   data_assets_sent: # sequence of IDs to reference
-      #     - db-dumps
-      #   data_assets_received: # sequence of IDs to reference
-      #     - db-dumps
-      #     - erp-logs
-      #     - customer-accounts
-      #     - customer-operational-data
-      #   #diagram_tweak_weight: 1
-      #   #diagram_tweak_constraint: false
       User Management Access:
         target: public-route-1
         description: Link to the public route 1
@@ -434,11 +413,11 @@ technical_assets:
       - json
       - file
     communication_links:
-      ERP System Traffic:
-        target: Private-Subnet
-        description: Link to the ERP system
+      Public Subnet Include Bastion Host:
+        target: Linux-Bastion-Host
+        description: Link to the bastion host
         protocol: https # values: see help
-        authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
+        authentication: session-id # values: none, credentials, session-id, token, client-certificate, two-factor
         authorization: technical-user # values: none, technical-user, enduser-identity-propagation
         tags:
         vpn: false
@@ -456,12 +435,12 @@ technical_assets:
           - internal-business-data
         #diagram_tweak_weight: 5
         #diagram_tweak_constraint: false
-      Auth Credential Check Traffic:
+      Subnet to Route table connection :
         target: public-route-1
-        description: Link to the Public Route 1 server
+        description: Link to the Public Route 1
         protocol: https # values: see help
         authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        authorization: none # values: none, technical-user, enduser-identity-propagation
         tags:
         vpn: false
         ip_filtered: false
@@ -502,55 +481,7 @@ technical_assets:
     data_assets_stored: # sequence of IDs to reference
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
-      # LDAP Credential Check Traffic:
-      #   target: ldap-auth-server
-      #   description: Link to the LDAP server
-      #   protocol: ldaps # values: see help
-      #   authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-      #   authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-      #   tags:
-      #   vpn: false
-      #   ip_filtered: false
-      #   readonly: false
-      #   usage: business # values: business, devops
-      #   data_assets_sent: # sequence of IDs to reference
-      #     - customer-accounts
-      #   data_assets_received: # sequence of IDs to reference
-
-
-  # LDAP Auth Server:
-  #   id: ldap-auth-server
-  #   #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-  #   description: LDAP authentication server
-  #   type: datastore # values: external-entity, process, datastore
-  #   usage: business # values: business, devops
-  #   used_as_client_by_human: false
-  #   out_of_scope: false
-  #   justification_out_of_scope:
-  #   size: component # values: system, service, application, component
-  #   technology: identity-store-ldap # values: see help
-  #   tags:
-  #     - linux
-  #   internet: false
-  #   machine: physical # values: physical, virtual, container, serverless
-  #   encryption: transparent # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
-  #   owner: shashank
-  #   confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-  #   integrity: critical # values: archive, operational, important, critical, mission-critical
-  #   availability: critical # values: archive, operational, important, critical, mission-critical
-  #   justification_cia_rating: >
-  #     The auth data of the application
-  #   multi_tenant: false
-  #   redundant: false
-  #   custom_developed_parts: false
-  #   data_assets_processed: # sequence of IDs to reference
-  #     - customer-accounts
-  #   data_assets_stored: # sequence of IDs to reference
-  #     - customer-accounts
-  #   data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
-  #   communication_links:
-
-
+    
   Linux Bastion Host:
     id: Linux-Bastion-Host
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
@@ -600,7 +531,6 @@ technical_assets:
       #     - customer-accounts
       #   #diagram_tweak_weight: 5
       #   #diagram_tweak_constraint: false
-
 
   Private Subnet:
     id: Private-Subnet

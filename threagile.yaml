@@ -885,12 +885,12 @@ risk_tracking:
     date: 2023-12-27
     checked_by: Shashank Sanap
 
-  ldap-injection@*: # wildcards "*" between the @ characters are possible
-    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
-    justification: The hardening measures were unchecked
-    ticket: a-1
-    date: 2023-12-27
-    checked_by: Shashank Sanap
+  # ldap-injection@*: # wildcards "*" between the @ characters are possible
+  #   status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
+  #   justification: The hardening measures were unchecked
+  #   ticket: a-1
+  #   date: 2023-12-27
+  #   checked_by: Shashank Sanap
 
   unencrypted-asset@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive

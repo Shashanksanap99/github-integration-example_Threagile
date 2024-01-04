@@ -804,60 +804,60 @@ technical_assets:
           - internal-business-data
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
-      NFS Filesystem Access:
-        target: contract-fileserver
-        description: Link to the file system
-        protocol: nfs # values: see help
-        authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: none # values: none, technical-user, enduser-identity-propagation
-        tags:
-        vpn: false
-        ip_filtered: false
-        readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          - customer-contracts
-        data_assets_received: # sequence of IDs to reference
-          - customer-contracts
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
+      # NFS Filesystem Access:
+      #   target: contract-fileserver
+      #   description: Link to the file system
+      #   protocol: nfs # values: see help
+      #   authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
+      #   authorization: none # values: none, technical-user, enduser-identity-propagation
+      #   tags:
+      #   vpn: false
+      #   ip_filtered: false
+      #   readonly: false
+      #   usage: business # values: business, devops
+      #   data_assets_sent: # sequence of IDs to reference
+      #     - customer-contracts
+      #   data_assets_received: # sequence of IDs to reference
+      #     - customer-contracts
+      #   #diagram_tweak_weight: 1
+      #   #diagram_tweak_constraint: false
 
 
-  Contract Fileserver:
-    id: contract-fileserver
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: NFS Filesystem for storing the contract PDFs
-    type: datastore # values: external-entity, process, datastore
-    usage: business # values: business, devops
-    used_as_client_by_human: false
-    out_of_scope: false
-    justification_out_of_scope:
-    size: component # values: system, service, application, component
-    technology: file-server # values: see help
-    tags:
-      - linux
-      - aws:s3
-    internet: false
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
-    owner: Company ABC
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      Contract data might contain financial data as well as personally identifiable information (PII). The integrity and
-      availability of contract data is required for clearing payment disputes. The filesystem is also required to be available
-      for storing new contracts of freshly generated customers.
-    multi_tenant: false
-    redundant: false
-    custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
-    data_assets_stored: # sequence of IDs to reference
-      - customer-contracts
-      - contract-summaries
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
-      - file
-    communication_links:
+  # Contract Fileserver:
+  #   id: contract-fileserver
+  #   #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
+  #   description: NFS Filesystem for storing the contract PDFs
+  #   type: datastore # values: external-entity, process, datastore
+  #   usage: business # values: business, devops
+  #   used_as_client_by_human: false
+  #   out_of_scope: false
+  #   justification_out_of_scope:
+  #   size: component # values: system, service, application, component
+  #   technology: file-server # values: see help
+  #   tags:
+  #     - linux
+  #     - aws:s3
+  #   internet: false
+  #   machine: virtual # values: physical, virtual, container, serverless
+  #   encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+  #   owner: Company ABC
+  #   confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+  #   integrity: critical # values: archive, operational, important, critical, mission-critical
+  #   availability: important # values: archive, operational, important, critical, mission-critical
+  #   justification_cia_rating: >
+  #     Contract data might contain financial data as well as personally identifiable information (PII). The integrity and
+  #     availability of contract data is required for clearing payment disputes. The filesystem is also required to be available
+  #     for storing new contracts of freshly generated customers.
+  #   multi_tenant: false
+  #   redundant: false
+  #   custom_developed_parts: false
+  #   data_assets_processed: # sequence of IDs to reference
+  #   data_assets_stored: # sequence of IDs to reference
+  #     - customer-contracts
+  #     - contract-summaries
+  #   data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+  #     - file
+  #   communication_links:
 
 
   Customer Contract Database:
@@ -1138,7 +1138,7 @@ trust_boundaries:
       - some-erp
     technical_assets_inside: # sequence of IDs to reference
       - erp-system
-      - contract-fileserver
+      # - contract-fileserver
       - sql-database
     trust_boundaries_nested: # sequence of IDs to reference
 
@@ -1191,7 +1191,7 @@ shared_runtimes:
       - apache-webserver
       - Linux-Bastion-Host
       - erp-system
-      - contract-fileserver
+      # - contract-fileserver
       - sql-database
 
 
@@ -1234,7 +1234,7 @@ individual_risk_categories: # used for adding custom manually identified risks
         data_breach_probability: improbable # values: improbable, possible, probable
         data_breach_technical_assets: # list of technical asset IDs which might have data breach
         most_relevant_data_asset:
-        most_relevant_technical_asset: contract-fileserver
+        most_relevant_technical_asset: #contract-fileserver
         most_relevant_communication_link:
         most_relevant_trust_boundary:
         most_relevant_shared_runtime:

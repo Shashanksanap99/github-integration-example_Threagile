@@ -291,24 +291,7 @@ technical_assets:
           - internal-business-data
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
-      Linux Bastion Host Editing:
-        target: Linux-Bastion-Host
-        description: Link to the CMS for editing content
-        protocol: https # values: see help
-        authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: enduser-identity-propagation # values: none, technical-user, enduser-identity-propagation
-        tags:
-        vpn: true
-        ip_filtered: false
-        readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          - marketing-material
-        data_assets_received: # sequence of IDs to reference
-          - marketing-material
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
-
+  
   Internet Gateway:
     id: internet-gateway
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
@@ -514,23 +497,6 @@ technical_assets:
       - marketing-material
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
-      # Auth Traffic:
-      #   target: ldap-auth-server
-      #   description: Link to the LDAP auth server
-      #   protocol: ldap # values: see help
-      #   authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-      #   authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-      #   tags:
-      #   vpn: false
-      #   ip_filtered: false
-      #   readonly: true
-      #   usage: business # values: business, devops
-      #   data_assets_sent: # sequence of IDs to reference
-      #     - customer-accounts
-      #   data_assets_received: # sequence of IDs to reference
-      #     - customer-accounts
-      #   #diagram_tweak_weight: 5
-      #   #diagram_tweak_constraint: false
 
   Private Subnet:
     id: Private-Subnet
@@ -571,44 +537,6 @@ technical_assets:
       - file
       - serialization
     communication_links:
-      Database Traffic:
-        target: sql-database
-        description: Link to the RDS Subnet Instance
-        protocol: jdbc # values: see help
-        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
-        tags:
-        vpn: false
-        ip_filtered: false
-        readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
-        data_assets_received: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
-      NFS Filesystem Access:
-        target: db-instance
-        description: Link to the file system
-        protocol: nfs # values: see help
-        authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: none # values: none, technical-user, enduser-identity-propagation
-        tags:
-        vpn: false
-        ip_filtered: false
-        readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          - customer-contracts
-        data_assets_received: # sequence of IDs to reference
-          - customer-contracts
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
 
 
   Db Instance:
@@ -680,6 +608,45 @@ technical_assets:
       - internal-business-data
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
+      Database Traffic:
+        target: sql-database
+        description: Link to the RDS Subnet Instance
+        protocol: jdbc # values: see help
+        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
+        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        tags:
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business # values: business, devops
+        data_assets_sent: # sequence of IDs to reference
+          - customer-accounts
+          - customer-operational-data
+          - internal-business-data
+        data_assets_received: # sequence of IDs to reference
+          - customer-accounts
+          - customer-operational-data
+          - internal-business-data
+        #diagram_tweak_weight: 1
+        #diagram_tweak_constraint: false
+      NFS Filesystem Access:
+        target: db-instance
+        description: Link to the file system
+        protocol: nfs # values: see help
+        authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
+        authorization: none # values: none, technical-user, enduser-identity-propagation
+        tags:
+        vpn: false
+        ip_filtered: false
+        readonly: false
+        usage: business # values: business, devops
+        data_assets_sent: # sequence of IDs to reference
+          - customer-contracts
+        data_assets_received: # sequence of IDs to reference
+          - customer-contracts
+        #diagram_tweak_weight: 1
+        #diagram_tweak_constraint: false
+
 
 trust_boundaries:
 

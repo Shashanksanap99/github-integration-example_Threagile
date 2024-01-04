@@ -11,7 +11,7 @@ author:
   homepage: https://github.com/Shashanksanap99/
 
 management_summary_comment: >
-  AWS CloudFormation facilitates the creation of a VPC with defined public and private subnets across multiple availability zones. 
+  IAC CloudFormation facilitates the creation of a AWS architecture consist of VPC with defined public and private subnets across multiple availability zones. 
   
 
 business_criticality: important
@@ -20,17 +20,16 @@ business_overview:
   description: A scalable and secure network is offered by AWS infrastructure on Amazon Web Services (AWS).It guarantees a robust architecture strong enough to support important parts like databases and application servers. This architecture serves companies looking for a stable, flexible, and secure cloud-based environment to support their operations by enabling dependable application hosting and effective database management.
   images:
 
-
 technical_overview:
   description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC,and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access,an application server in the private subnet, and a database instance with security group.
   images:
 
-questions:
-  How are the admin clients managed/protected against compromise?: ""
-  How are the development clients managed/protected against compromise?: >
-    Managed by XYZ
-  How are the build pipeline components managed/protected against compromise?: >
-    Managed by XYZ
+# questions:
+#   How are the admin clients managed/protected against compromise?: ""
+#   How are the development clients managed/protected against compromise?: >
+#     Managed by XYZ
+#   How are the build pipeline components managed/protected against compromise?: >
+#     Managed by XYZ
 
 abuse_cases:
   Denial-of-Service: >
@@ -605,49 +604,6 @@ shared_runtimes:
       - db-instance
       - sql-database
 
-individual_risk_categories: # used for adding custom manually identified risks
-
-  Some Individual Risk Example:
-    id: something-strange
-    description: Some text describing the risk category...
-    impact: Some text describing the impact...
-    asvs: V0 - Something Strange
-    cheat_sheet: https://example.com
-    action: Some text describing the action...
-    mitigation: Some text describing the mitigation...
-    check: Check if XYZ...
-    function: business-side # values: business-side, architecture, development, operations
-    stride: repudiation # values: spoofing, tampering, repudiation, information-disclosure, denial-of-service, elevation-of-privilege
-    detection_logic: Some text describing the detection logic...
-    risk_assessment: Some text describing the risk assessment...
-    false_positives: Some text describing the most common types of false positives...
-    model_failure_possible_reason: false
-    cwe: 693
-    risks_identified:
-      <b>Example Individual Risk</b> at <b>Database</b>:
-        severity: critical # values: low, medium, elevated, high, critical
-        exploitation_likelihood: likely # values: unlikely, likely, very-likely, frequent
-        exploitation_impact: medium # values: low, medium, high, very-high
-        data_breach_probability: probable # values: improbable, possible, probable
-        data_breach_technical_assets: # list of technical asset IDs which might have data breach
-          - sql-database
-        most_relevant_data_asset:
-        most_relevant_technical_asset: sql-database
-        most_relevant_communication_link:
-        most_relevant_trust_boundary:
-        most_relevant_shared_runtime:
-      <b>Example Individual Risk</b> at <b>Contract Filesystem</b>:
-        severity: medium # values: low, medium, elevated, high, critical
-        exploitation_likelihood: frequent # values: unlikely, likely, very-likely, frequent
-        exploitation_impact: very-high # values: low, medium, high, very-high
-        data_breach_probability: improbable # values: improbable, possible, probable
-        data_breach_technical_assets: # list of technical asset IDs which might have data breach
-        most_relevant_data_asset:
-        most_relevant_technical_asset: db-instance
-        most_relevant_communication_link:
-        most_relevant_trust_boundary:
-        most_relevant_shared_runtime:
-
 risk_tracking:
 
   unencrypted-asset@*: # wildcards "*" between the @ characters are possible
@@ -666,14 +622,14 @@ risk_tracking:
 
   missing-hardening@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
-    justification: The hardening measures were implemented and checked
+    justification: The hardening measures are unchecked
     ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
 
   dos-risky-access-across-trust-boundary@*@*@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
-    justification: The hardening measures are being implemented and checked
+    justification: The hardening measures are unchecked
     ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap

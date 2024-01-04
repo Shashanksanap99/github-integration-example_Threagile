@@ -355,8 +355,8 @@ technical_assets:
           - internal-business-data
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
-      Marketing CMS Editing:
-        target: marketing-cms
+      Linux Bastion Host Editing:
+        target: Linux-Bastion-Host
         description: Link to the CMS for editing content
         protocol: https # values: see help
         authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -516,7 +516,7 @@ technical_assets:
         #diagram_tweak_weight: 5
         #diagram_tweak_constraint: false
       CMS Content Traffic:
-        target: marketing-cms
+        target: Linux-Bastion-Host
         description: Link to the CMS server
         protocol: http # values: see help
         authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -693,8 +693,8 @@ technical_assets:
     communication_links:
 
 
-  Marketing CMS:
-    id: marketing-cms
+  Linux Bastion Host:
+    id: Linux-Bastion-Host
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: CMS for the marketing content
     type: process # values: external-entity, process, datastore
@@ -1101,7 +1101,7 @@ technical_assets:
   #         - server-application-code
   #       data_assets_received: # sequence of IDs to reference
   #     CMS Updates:
-  #       target: marketing-cms
+  #       target: Linux-Bastion-Host
   #       description: Link to the CMS
   #       protocol: ssh # values: see help
   #       authentication: client-certificate # values: none, credentials, session-id, token, client-certificate, two-factor
@@ -1126,7 +1126,7 @@ trust_boundaries:
     tags:
     technical_assets_inside: # sequence of IDs to reference
       - apache-webserver
-      - marketing-cms
+      - Linux-Bastion-Host
     trust_boundaries_nested: # sequence of IDs to reference
 
 
@@ -1189,7 +1189,7 @@ shared_runtimes:
       - vmware
     technical_assets_running: # sequence of IDs to reference
       - apache-webserver
-      - marketing-cms
+      - Linux-Bastion-Host
       - erp-system
       - contract-fileserver
       - sql-database

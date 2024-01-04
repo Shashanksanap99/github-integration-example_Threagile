@@ -1119,9 +1119,9 @@ technical_assets:
 trust_boundaries:
 
 
-  Web DMZ:
-    id: web-dmz
-    description: Web DMZ
+  Public Instance:
+    id: Public-Instance
+    description: Public Instance
     type: network-cloud-security-group # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
@@ -1130,9 +1130,9 @@ trust_boundaries:
     trust_boundaries_nested: # sequence of IDs to reference
 
 
-  ERP DMZ:
-    id: erp-dmz
-    description: ERP DMZ
+  Private Instance:
+    id: Private-Instance
+    description: Private Instance
     type: network-cloud-security-group # values: see help
     tags:
       - some-erp
@@ -1145,15 +1145,15 @@ trust_boundaries:
 
   Application Network:
     id: application-network
-    description: Application Network
+    description: Virtual-Private-Cloud
     type: network-cloud-provider # values: see help
     tags:
       - aws
     technical_assets_inside: # sequence of IDs to reference
       - load-balancer
     trust_boundaries_nested: # sequence of IDs to reference
-      - web-dmz
-      - erp-dmz
+      - Public-Instance
+      - Private-Instance
       - auth-env
 
 

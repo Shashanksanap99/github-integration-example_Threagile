@@ -67,20 +67,18 @@ security_requirements:
 tags_available:
   - linux
   - mysql
-  - mysql
   - some-erp
   - vmware
   - aws
   - aws:ec2
   - aws:s3
 
-
 data_assets:
 
 
-  Customer Contracts: &customer-contracts # this example shows the inheritance-like features of YAML
-    id: customer-contracts
-    description: Customer Contracts (PDF)
+  Data Transfer: &data-transfer # this example shows the inheritance-like features of YAML
+    id: data-transfer
+    description: Data Transfer (PDF)
     usage: business # values: business, devops
     tags:
     origin: Customer
@@ -94,20 +92,20 @@ data_assets:
       availability of contract data is required for clearing payment disputes.
 
 
-  Customer Contract Summaries:
-    <<: *customer-contracts # here we're referencing the above created asset as base and just overwrite few values
-    id: contract-summaries
-    description: Customer Contract Summaries
-    quantity: very-few # values: very-few, few, many, very-many
-    confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: operational # values: archive, operational, important, critical, mission-critical
-    availability: operational # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      Just some summaries.
+  # Customer Contract Summaries:
+  #   <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
+  #   id: contract-summaries
+  #   description: Customer Contract Summaries
+  #   quantity: very-few # values: very-few, few, many, very-many
+  #   confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
+  #   integrity: operational # values: archive, operational, important, critical, mission-critical
+  #   availability: operational # values: archive, operational, important, critical, mission-critical
+  #   justification_cia_rating: >
+  #     Just some summaries.
 
 
   Customer Operational Data:
-    <<: *customer-contracts # here we're referencing the above created asset as base and just overwrite few values
+    <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
     id: customer-operational-data
     description: Customer Operational Data
     availability: critical # values: archive, operational, important, critical, mission-critical
@@ -117,7 +115,7 @@ data_assets:
 
 
   Customer Accounts:
-    <<: *customer-contracts # here we're referencing the above created asset as base and just overwrite few values
+    <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
     id: customer-accounts
     description: Customer Accounts (including transient credentials when entered for checking them)
     confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
@@ -266,7 +264,7 @@ technical_assets:
     redundant: false
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
-      - customer-contracts
+      - data-transfer
       - internal-business-data
       - erp-logs
     data_assets_stored: # sequence of IDs to reference
@@ -287,7 +285,7 @@ technical_assets:
         data_assets_sent: # sequence of IDs to reference
           - internal-business-data
         data_assets_received: # sequence of IDs to reference
-          - customer-contracts
+          - data-transfer
           - internal-business-data
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
@@ -385,7 +383,7 @@ technical_assets:
     data_assets_processed: # sequence of IDs to reference
       - customer-accounts
       - customer-operational-data
-      - customer-contracts
+      - data-transfer
       - internal-business-data
       - client-application-code
       - server-application-code
@@ -414,7 +412,7 @@ technical_assets:
         data_assets_received: # sequence of IDs to reference
           - customer-accounts
           - customer-operational-data
-          - customer-contracts
+          - data-transfer
           - internal-business-data
         #diagram_tweak_weight: 5
         #diagram_tweak_constraint: false
@@ -527,7 +525,7 @@ technical_assets:
     data_assets_processed: # sequence of IDs to reference
       - customer-accounts
       - customer-operational-data
-      - customer-contracts
+      - data-transfer
       - internal-business-data
       - erp-customizing
     data_assets_stored: # sequence of IDs to reference
@@ -588,8 +586,7 @@ technical_assets:
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
     data_assets_stored: # sequence of IDs to reference
-      - customer-contracts
-      - contract-summaries
+      - data-transfer
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
       - file
     communication_links:

@@ -14,7 +14,7 @@ management_summary_comment: >
   AWS CloudFormation facilitates the creation of a VPC with defined public and private subnets across multiple availability zones. 
   
 
-business_criticality: important # values: archive, operational, important, critical, mission-critical
+business_criticality: important
 
 business_overview:
   description: A scalable and secure network is offered by AWS infrastructure on Amazon Web Services (AWS).It guarantees a robust architecture strong enough to support important parts like databases and application servers. This architecture serves companies looking for a stable, flexible, and secure cloud-based environment to support their operations by enabling dependable application hosting and effective database management.
@@ -25,7 +25,7 @@ technical_overview:
   description: AWS network infrastructure configures a Virtual Private Cloud (VPC) with defined CIDR blocks, enabling DNS support and hostnames. The setup includes public and private subnets across multiple availability zones for high availability and fault tolerance.Key components of this setup include an internet gateway for external connectivity, route tables to manage traffic flow within the VPC,and security groups to control access to instances. The infrastructure comprises various instances a Linux bastion host in the public subnet for secure SSH access,an application server in the private subnet, and a database instance with security group.
   images:
 
-questions: # Can add custom questions Arises during the process
+questions:
   How are the admin clients managed/protected against compromise?: ""
   How are the development clients managed/protected against compromise?: >
     Managed by XYZ
@@ -62,586 +62,512 @@ security_requirements:
   Input Validation: Strict input validation is required to reduce the overall attack surface.
   Securing Administrative Access: Administrative access must be secured with strong encryption and multi-factor authentication.
 
-# Tags can be used for anything, it's just a tag. Also risk rules can act based on tags if you like.
-# Tags can be used for example to name the products used (which is more concrete than the technology types that only specify the type)
 tags_available:
   - linux
   - mysql
-  - some-erp
   - vmware
   - aws
   - aws:ec2
-  - aws:s3
+  - aws:rds
+  - aws:vpc
 
 data_assets:
 
-  Data Transfer: &data-transfer # this example shows the inheritance-like features of YAML
+  Data Transfer: &data-transfer
     id: data-transfer
     description: Data Transfer
-    usage: business # values: business, devops
+    usage: business 
     tags:
     origin: Customer
     owner: Shashank
-    quantity: many # values: very-few, few, many, very-many
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: operational # values: archive, operational, important, critical, mission-critical
+    quantity: many 
+    confidentiality: confidential 
+    integrity: critical 
+    availability: operational 
     justification_cia_rating: >
       data transfer might contain financial data as well as personally identifiable information (PII).
 
   Internet Data Transfer:
-    <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
+    <<: *data-transfer 
     id: internet-data-transfer
     description: Internet Data Transfer (including transient credentials when entered for checking them)
-    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
-    availability: critical # values: archive, operational, important, critical, mission-critical
+    confidentiality: strictly-confidential 
+    availability: critical 
     justification_cia_rating: >
       Internet data transfer used to be available to offer the internet functionality.
 
   Database Data Transfer:
     id: database-data-transfer
     description: Database data transfer of the system used to the transfer data between resources.
-    usage: business # values: business, devops
+    usage: business 
     tags:
     origin: Shashank
     owner: Shashank
-    quantity: few # values: very-few, few, many, very-many
-    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: critical # values: archive, operational, important, critical, mission-critical
+    quantity: few 
+    confidentiality: strictly-confidential 
+    integrity: critical 
+    availability: critical 
     justification_cia_rating: >
       Data used and/or generated when application running like db-instance - mysql
 
-
-  Client Application Code: &client-application-code # this example shows the inheritance-like features of YAML
+  Client Application Code: &client-application-code 
     id: client-application-code
     description: client-side code delivered by the application.
-    usage: devops # values: business, devops
+    usage: devops 
     tags:
     origin: shashank
     owner: shashank
-    quantity: very-few # values: very-few, few, many, very-many
-    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
+    quantity: very-few 
+    confidentiality: public 
+    integrity: critical 
+    availability: important 
     justification_cia_rating: >
       The integrity of the public data is critical to avoid reputational damage and the availability is important on the
       long-term scale (but not critical) to keep the growth rate of the customer base steady.
 
-
   Server Application Code:
-    <<: *client-application-code # here we're referencing the above created asset as base and just overwrite few values
+    <<: *client-application-code 
     id: server-application-code
     description: API and other server-side code of the application.
-    confidentiality: internal # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
+    confidentiality: internal 
+    integrity: mission-critical 
+    availability: important 
     justification_cia_rating: >
       The integrity of the API code is critical to avoid reputational damage and the availability is important.
-
-
-  # Build Job Config:
-  #   id: build-job-config
-  #   description: Data for customizing of the build job system.
-  #   usage: devops # values: business, devops
-  #   tags:
-  #   origin: Shashank
-  #   owner: Shashank
-  #   quantity: very-few # values: very-few, few, many, very-many
-  #   confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
-  #   integrity: critical # values: archive, operational, important, critical, mission-critical
-  #   availability: operational # values: archive, operational, important, critical, mission-critical
-  #   justification_cia_rating: >
-  #     Data for customizing of the build job system.
-
-
-  # Marketing Material:
-  #   <<: *client-application-code # here we're referencing the above created asset as base and just overwrite few values
-  #   id: marketing-material
-  #   description: Website and marketing data to inform potential customers and generate new leads.
-  #   integrity: important # values: archive, operational, important, critical, mission-critical
-
 
   App server logs:
     id: app-server-logs
     description: Logs generated by the ERP system.
-    usage: devops # values: business, devops
+    usage: devops 
     tags:
     origin: Shashank
     owner: Shashank
-    quantity: many # values: very-few, few, many, very-many
-    confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: archive # values: archive, operational, important, critical, mission-critical
-    availability: archive # values: archive, operational, important, critical, mission-critical
+    quantity: many 
+    confidentiality: restricted 
+    integrity: archive 
+    availability: archive 
     justification_cia_rating: >
       Logs should not contain PII data and are only required for failure analysis, i.e. they are not considered as hard
       transactional logs.
 
-
-  # ERP Customizing Data:
-  #   id: erp-customizing
-  #   description: Data for customizing of the ERP system.
-  #   usage: devops # values: business, devops
-  #   tags:
-  #   origin: Shashank
-  #   owner: Shashank
-  #   quantity: very-few # values: very-few, few, many, very-many
-  #   confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-  #   integrity: critical # values: archive, operational, important, critical, mission-critical
-  #   availability: critical # values: archive, operational, important, critical, mission-critical
-  #   justification_cia_rating: >
-  #     Data for customizing of the ERP system.
-
-
   Database Customizing and Dumps:
     id: db-dumps
     description: Data for customizing of the DB system, which might include full database dumps.
-    usage: business # values: business, devops
+    usage: business 
     tags:
       - mysql
     origin: Shashank
     owner: Shashank
-    quantity: very-few # values: very-few, few, many, very-many
-    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: critical # values: archive, operational, important, critical, mission-critical
+    quantity: very-few 
+    confidentiality: strictly-confidential 
+    integrity: critical 
+    availability: critical 
     justification_cia_rating: >
       Data for customizing of the DB system, which might include full database dumps.
 
-
 technical_assets:
-
   App Server:
     id: app-server
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: App Server
-    type: external-entity # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: external-entity 
+    usage: business 
     used_as_client_by_human: true
-    out_of_scope: true
-    justification_out_of_scope: Owned and managed by Shashank company
-    size: component # values: system, service, application, component
-    technology: desktop # values: see help
+    out_of_scope: false
+    justification_out_of_scope:
+    size: application 
+    technology: web-server 
     tags:
     internet: false
-    machine: physical # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: none 
     owner: Shashank
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: important # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
+    confidentiality: confidential 
+    integrity: important 
+    availability: important 
     justification_cia_rating: >
       The client used by Shashank to administer and use the system.
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
-      - data-transfer
+    data_assets_processed: 
       - database-data-transfer
       - app-server-logs
-    data_assets_stored: # sequence of IDs to reference
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+      - server-application-code
+    data_assets_stored: 
+    data_formats_accepted: 
     communication_links:
-      ERP Internal Access:
+      Internal Access:
         target: Private-Subnet
-        description: Link to the ERP system
-        protocol: https # values: see help
-        authentication: token # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: enduser-identity-propagation # values: none, technical-user, enduser-identity-propagation
+        description: Link to the Private system
+        protocol: https 
+        authentication: token 
+        authorization: technical-user
         tags:
-          - some-erp
+          - aws:ec2
         vpn: true
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
+        usage: business 
+        data_assets_sent: 
           - database-data-transfer
-        data_assets_received: # sequence of IDs to reference
+        data_assets_received: 
           - data-transfer
           - database-data-transfer
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
   
   Internet Gateway:
     id: internet-gateway
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: Internet Gateway
-    type: external-entity # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: external-entity 
+    usage: business 
     used_as_client_by_human: false
-    out_of_scope: true
-    justification_out_of_scope: Owned and managed by provider
-    size: component # values: system, service, application, component
-    technology: browser # values: see help
+    out_of_scope: false
+    justification_out_of_scope:
+    size: service 
+    technology: browser 
     tags:
     internet: true
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: none 
     owner: Shashank
-    confidentiality: public # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: operational # values: archive, operational, important, critical, mission-critical
-    availability: operational # values: archive, operational, important, critical, mission-critical
+    confidentiality: public 
+    integrity: operational 
+    availability: operational 
     justification_cia_rating: >
       The client used by Shashank to administer the system.
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
-      - app-server-logs
-    data_assets_stored: # sequence of IDs to reference
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_assets_processed: 
+      - internet-data-transfer
+    data_assets_stored: 
+    data_formats_accepted: 
     communication_links:
       Bastion Host Access:
         target: Linux-Bastion-Host
         description: Link to the Bastion host
-        protocol: https # values: see help
-        authentication: none # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: none # values: none, technical-user, enduser-identity-propagation
+        protocol: https 
+        authentication: none 
+        authorization: none 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          # - erp-customizing
-        data_assets_received: # sequence of IDs to reference
-          - app-server-logs
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
-      User Management Access:
+        usage: business 
+        data_assets_sent: 
+           - internet-data-transfer
+        data_assets_received: 
+        
+      Route Table Access:
         target: public-route-1
         description: Link to the public route 1
-        protocol: ldaps # values: see help
-        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        protocol: https 
+        authentication: credentials 
+        authorization: technical-user 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: devops # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
+        usage: business 
+        data_assets_sent: 
           - internet-data-transfer
-        data_assets_received: # sequence of IDs to reference
+        data_assets_received: 
           - internet-data-transfer
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
-
+        
   Public Subnet:
     id: Public-Subnet
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: Public Subnet hosting the client-side code
-    type: process # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: process 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: application # values: system, service, application, component
-    technology: web-server # values: see help
+    size: application 
+    technology: web-server 
     tags:
       - linux
       - aws:ec2
     internet: false
-    machine: container # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: none 
     owner: shashank
-    confidentiality: internal # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: critical # values: archive, operational, important, critical, mission-critical
+    confidentiality: internal 
+    integrity: critical 
+    availability: critical 
     justification_cia_rating: >
-      The correct configuration and reachability of the web server is mandatory for all customer usages of the portal.
+      The correct configuration and reachability of the Public subnet is mandatory for all resources.
     multi_tenant: false
     redundant: false
     custom_developed_parts: true
-    data_assets_processed: # sequence of IDs to reference
+    data_assets_processed: 
       - internet-data-transfer
-      - data-transfer
-      - database-data-transfer
       - client-application-code
-      - server-application-code
-    data_assets_stored: # sequence of IDs to reference
+    data_assets_stored: 
       - client-application-code
-      - server-application-code
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_formats_accepted: 
       - json
       - file
     communication_links:
       Public Subnet Include Bastion Host:
         target: Linux-Bastion-Host
         description: Link to the bastion host
-        protocol: https # values: see help
-        authentication: session-id # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        protocol: https 
+        authentication: session-id 
+        authorization: technical-user 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
+        usage: business 
+        data_assets_sent: 
           - internet-data-transfer
-          - database-data-transfer
-        data_assets_received: # sequence of IDs to reference
+          - client-application-code
+        data_assets_received: 
           - internet-data-transfer
-          - data-transfer
-          - database-data-transfer
-        #diagram_tweak_weight: 5
-        #diagram_tweak_constraint: false
+          - client-application-code
+
       Subnet to Route table connection :
         target: public-route-1
         description: Link to the Public Route 1
-        protocol: https # values: see help
-        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: none # values: none, technical-user, enduser-identity-propagation
+        protocol: https 
+        authentication: credentials 
+        authorization: none 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
-          - internet-data-transfer
-        data_assets_received: # sequence of IDs to reference
-
+        usage: business 
+        data_assets_sent: 
+          - data-transfer
+        data_assets_received: 
+          - data-transfer
 
   Public Route 1:
-    id: public-route-1
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
+    id: public-route-1    
     description: Public Route 1
-    type: process # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: process 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: component # values: system, service, application, component
-    technology: identity-provider # values: see help
+    size: component 
+    technology: identity-provider 
     tags:
-      - linux
-    internet: false
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    internet: true
+    machine: virtual 
+    encryption: none 
     owner: shashank
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: critical # values: archive, operational, important, critical, mission-critical
+    confidentiality: confidential 
+    integrity: critical 
+    availability: critical 
     justification_cia_rating: >
       The auth data of the application
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
+    data_assets_processed: 
       - internet-data-transfer
-    data_assets_stored: # sequence of IDs to reference
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_assets_stored: 
+    data_formats_accepted: 
     communication_links:
     
   Linux Bastion Host:
     id: Linux-Bastion-Host
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: CMS for the marketing content
-    type: process # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    description: Linux bastion host for hosting the application
+    type: process 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: application # values: system, service, application, component
-    technology: cms # values: see help
+    size: application 
+    technology: web-server 
     tags:
       - linux
     internet: false
-    machine: container # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual
+    encryption: none 
     owner: shashank
-    confidentiality: internal # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: important # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
+    confidentiality: internal 
+    integrity: important 
+    availability: important 
     justification_cia_rating: >
       The correct configuration and reachability of the web server is mandatory for all customer usages of the portal.
     multi_tenant: false
     redundant: false
     custom_developed_parts: true
-    data_assets_processed: # sequence of IDs to reference
+    data_assets_processed: 
       - internet-data-transfer
-    data_assets_stored: # sequence of IDs to reference
-      # - marketing-material
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+      - client-application-code
+    data_assets_stored: 
+      - client-application-code
+    data_formats_accepted: 
     communication_links:
 
   Private Subnet:
     id: Private-Subnet
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: ERP system
-    type: process # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    description: Used for database and app server
+    type: process 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: system # values: system, service, application, component
-    technology: erp # values: see help
+    size: application 
+    technology: web-server 
     tags:
       - linux
     internet: false
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: none 
     owner: shashank
-    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
-    availability: mission-critical # values: archive, operational, important, critical, mission-critical
+    confidentiality: strictly-confidential 
+    integrity: mission-critical 
+    availability: mission-critical 
     justification_cia_rating: >
-      The ERP system contains business-relevant sensitive data for the leasing processes and eventually also for other
-      Shashank internal processes.
+      The private instance contains sensitive data of application
     multi_tenant: false
     redundant: true
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
-      - internet-data-transfer
+    data_assets_processed: 
       - data-transfer
       - database-data-transfer
-    data_assets_stored: # sequence of IDs to reference
+    data_assets_stored: 
       - app-server-logs
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_formats_accepted: 
       - xml
       - file
-      - serialization
     communication_links:
       Database Traffic:
         target: sql-database
         description: Link to the RDS Subnet Instance
-        protocol: jdbc # values: see help
-        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        protocol: jdbc 
+        authentication: credentials 
+        authorization: technical-user 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
+        usage: business 
+        data_assets_sent: 
           - internet-data-transfer
           - database-data-transfer
-        data_assets_received: # sequence of IDs to reference
+        data_assets_received: 
           - internet-data-transfer
           - database-data-transfer
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
-
 
   Db Instance:
     id: db-instance
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: db instance for storing the application data in mysql database
-    type: datastore # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: datastore 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: service # values: system, service, application, component
-    technology: file-server # values: see help
+    size: service 
+    technology: database 
     tags:
       - linux
-      - aws:s3
+      - aws:rds
     internet: false
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: data-with-symmetric-shared-key # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: data-with-symmetric-shared-key 
     owner: shashank
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: important # values: archive, operational, important, critical, mission-critical
+    confidentiality: confidential 
+    integrity: critical 
+    availability: important 
     justification_cia_rating: >
       Db Instance might contain database of the application. Database will be the according to the application requirement.
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
-    data_assets_stored: # sequence of IDs to reference
+    data_assets_processed: 
+    data_assets_stored: 
       - data-transfer
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_formats_accepted: 
       - file
     communication_links:
 
-
   RDS Subnet:
     id: sql-database
-    #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: The database behind the private subnet
-    type: datastore # values: external-entity, process, datastore
-    usage: business # values: business, devops
+    type: datastore 
+    usage: business 
     used_as_client_by_human: false
     out_of_scope: false
     justification_out_of_scope:
-    size: component # values: system, service, application, component
-    technology: database # values: see help
+    size: component 
+    technology: database 
     tags:
       - linux
       - mysql
     internet: false
-    machine: virtual # values: physical, virtual, container, serverless
-    encryption: data-with-symmetric-shared-key # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
+    machine: virtual 
+    encryption: data-with-symmetric-shared-key 
     owner: shashank
-    confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: mission-critical # values: archive, operational, important, critical, mission-critical
-    availability: mission-critical # values: archive, operational, important, critical, mission-critical
+    confidentiality: strictly-confidential 
+    integrity: mission-critical 
+    availability: mission-critical 
     justification_cia_rating: >
       The rds database subnet can host databases 
     multi_tenant: false
     redundant: false
     custom_developed_parts: false
-    data_assets_processed: # sequence of IDs to reference
+    data_assets_processed: 
       - db-dumps
-    data_assets_stored: # sequence of IDs to reference
-      - internet-data-transfer
       - database-data-transfer
-    data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
+    data_assets_stored: 
+      - database-data-transfer
+    data_formats_accepted: 
     communication_links:
       Database Traffic:
         target: db-instance
         description: Link to the RDS Subnet Instance
-        protocol: jdbc # values: see help
-        authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
-        authorization: technical-user # values: none, technical-user, enduser-identity-propagation
+        protocol: jdbc 
+        authentication: credentials 
+        authorization: technical-user 
         tags:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: business # values: business, devops
-        data_assets_sent: # sequence of IDs to reference
+        usage: business 
+        data_assets_sent: 
           - internet-data-transfer
           - database-data-transfer
-        data_assets_received: # sequence of IDs to reference
+        data_assets_received: 
           - internet-data-transfer
           - database-data-transfer
-        #diagram_tweak_weight: 1
-        #diagram_tweak_constraint: false
 
 trust_boundaries:
 
   Public Instance:
     id: Public-Instance
     description: Public Instance
-    type: network-cloud-security-group # values: see help
+    type: network-cloud-security-group 
     tags:
-    technical_assets_inside: # sequence of IDs to reference
+      - aws:ec2
+    technical_assets_inside:
       - Public-Subnet
       - Linux-Bastion-Host
-    trust_boundaries_nested: # sequence of IDs to reference
+    trust_boundaries_nested:
 
   Private Instance:
     id: Private-Instance
     description: Private Instance
-    type: network-cloud-security-group # values: see help
+    type: network-cloud-security-group 
     tags:
-      - some-erp
-    technical_assets_inside: # sequence of IDs to reference
+      - aws:ec2
+    technical_assets_inside: 
       - Private-Subnet
       - db-instance
       - sql-database
-    trust_boundaries_nested: # sequence of IDs to reference
+    trust_boundaries_nested: 
 
   Application Network:
     id: application-network
     description: Virtual-Private-Cloud
-    type: network-cloud-provider # values: see help
+    type: network-cloud-provider 
     tags:
-      - aws
-    technical_assets_inside: # sequence of IDs to reference
-      # - load-balancer
-    trust_boundaries_nested: # sequence of IDs to reference
+      - aws:vpc
+    technical_assets_inside: 
+    trust_boundaries_nested: 
       - Public-Instance
       - Private-Instance
       - public-route-table
@@ -649,40 +575,37 @@ trust_boundaries:
   Public Route Table:
     id: public-route-table
     description: Public Route Table
-    type: execution-environment # values: see help
+    type: execution-environment 
     tags:
-    technical_assets_inside: # sequence of IDs to reference
+    technical_assets_inside: 
       - public-route-1
-      # - ldap-auth-server
-    trust_boundaries_nested: # sequence of IDs to reference
+    trust_boundaries_nested: 
 
   Dev Network:
     id: dev-network
     description: Development Network
-    type: network-on-prem # values: see help
+    type: network-on-prem 
     tags:
-    technical_assets_inside: # sequence of IDs to reference
+    technical_assets_inside: 
       - internet-gateway
       - app-server
-    trust_boundaries_nested: # sequence of IDs to reference
+    trust_boundaries_nested: 
 
 shared_runtimes:
 
-  WebApp and Backoffice Virtualization:
-    id: webapp-virtualization
-    description: WebApp Virtualization
+  Subnet and Instance Virtualization:
+    id: Instance-virtualization
+    description: Instance Virtualization
     tags:
       - vmware
-    technical_assets_running: # sequence of IDs to reference
+    technical_assets_running: 
       - Public-Subnet
       - Linux-Bastion-Host
       - Private-Subnet
       - db-instance
       - sql-database
 
-
 individual_risk_categories: # used for adding custom manually identified risks
-
 
   Some Individual Risk Example:
     id: something-strange
@@ -725,23 +648,7 @@ individual_risk_categories: # used for adding custom manually identified risks
         most_relevant_trust_boundary:
         most_relevant_shared_runtime:
 
-# NOTE:
-# For risk tracking each risk-id needs to be defined (the string with the @ sign in it). These unique risk IDs
-# are visible in the PDF report (the small grey string under each risk), the Excel (column "ID"), as well as the JSON responses.
-# Some risk IDs have only one @ sign in them, while others multiple. The idea is to allow for unique but still speaking IDs.
-# Therefore each risk instance creates its individual ID by taking all affected elements causing the risk to be within an @-delimited part.
-# Using wildcards (the * sign) for parts delimited by @ signs allows to handle groups of certain risks at once. Best is to lookup the IDs
-# to use in the created Excel file. Alternatively a model macro "seed-risk-tracking" is available that helps in initially
-# seeding the risk tracking part here based on already identified and not yet handled risks.
-
 risk_tracking:
-
-  untrusted-deserialization@*: # wildcards "*" between the @ characters are possible
-    status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
-    justification: not needed for this time
-    ticket: a-1
-    date: 2023-12-27
-    checked_by: Shashank Sanap
 
   unencrypted-asset@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
@@ -770,16 +677,3 @@ risk_tracking:
     ticket: a-1
     date: 2023-12-27
     checked_by: Shashank Sanap
-
-#diagram_tweak_edge_layout: spline # values: spline, polyline, false, ortho (this suppresses edge labels), curved (this suppresses edge labels and can cause problems with edges)
-
-#diagram_tweak_suppress_edge_labels: true
-#diagram_tweak_layout_left_to_right: true
-#diagram_tweak_nodesep: 2
-#diagram_tweak_ranksep: 2
-#diagram_tweak_invisible_connections_between_assets:
-#  - tech-asset-source-id-A:tech-asset-target-id-B
-#  - tech-asset-source-id-C:tech-asset-target-id-D
-#diagram_tweak_same_rank_assets:
-#  - tech-asset-source-id-E:tech-asset-target-id-F:tech-asset-source-id-G:tech-asset-target-id-H
-#  - tech-asset-source-id-M:tech-asset-target-id-N:tech-asset-source-id-O

@@ -430,7 +430,7 @@ technical_assets:
         vpn: false
         ip_filtered: false
         readonly: false
-        usage: devops # values: business, devops
+        usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
           - db-dumps
         data_assets_received: # sequence of IDs to reference
@@ -785,7 +785,7 @@ technical_assets:
     communication_links:
       Database Traffic:
         target: sql-database
-        description: Link to the DB system
+        description: Link to the RDS Subnet Instance
         protocol: jdbc # values: see help
         authentication: credentials # values: none, credentials, session-id, token, client-certificate, two-factor
         authorization: technical-user # values: none, technical-user, enduser-identity-propagation
@@ -860,10 +860,10 @@ technical_assets:
   #   communication_links:
 
 
-  Customer Contract Database:
+  RDS Database Instance:
     id: sql-database
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
-    description: The database behind the ERP system
+    description: The database behind the private subnet
     type: datastore # values: external-entity, process, datastore
     usage: business # values: business, devops
     used_as_client_by_human: false

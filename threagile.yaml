@@ -1159,7 +1159,7 @@ individual_risk_categories: # used for adding custom manually identified risks
 
 risk_tracking:
 
-  untrusted-deserialization@Private-Subnet: # wildcards "*" between the @ characters are possible
+  untrusted-deserialization@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: not needed for this time
     ticket: a-1

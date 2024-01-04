@@ -622,7 +622,7 @@ technical_assets:
     out_of_scope: false
     justification_out_of_scope:
     size: component # values: system, service, application, component
-    technology: public-route-1 # values: see help
+    technology: identity-provider # values: see help
     tags:
       - linux
       - jboss

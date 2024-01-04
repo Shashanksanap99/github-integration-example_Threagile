@@ -744,7 +744,7 @@ technical_assets:
         #diagram_tweak_constraint: false
 
 
-  Private-Subnet:
+  Private Subnet:
     id: Private-Subnet
     #diagram_tweak_order: 0 # affects left to right positioning (only within a trust boundary)
     description: ERP system

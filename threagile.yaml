@@ -2,9 +2,9 @@ threagile_version: 1.0.0
 
 # NOTE:
 
-title: AWS Infrastructure
+title: IAC Infrastructure
 
-date: 2023-12-22
+date: 2024-01-04
 
 author:
   name: Shashank Sanap
@@ -32,7 +32,6 @@ questions: # Can add custom questions Arises during the process
   How are the build pipeline components managed/protected against compromise?: >
     Managed by XYZ
 
-
 abuse_cases:
   Denial-of-Service: >
     As a hacker I want to disturb the functionality of the backend system in order to cause indirect
@@ -59,22 +58,16 @@ abuse_cases:
     As a hacker I want to disturb the functionality of the Database system to cause indirect
     financial damage.
 
-
 security_requirements:
   Input Validation: Strict input validation is required to reduce the overall attack surface.
   Securing Administrative Access: Administrative access must be secured with strong encryption and multi-factor authentication.
-
 
 # Tags can be used for anything, it's just a tag. Also risk rules can act based on tags if you like.
 # Tags can be used for example to name the products used (which is more concrete than the technology types that only specify the type)
 tags_available:
   - linux
-  - apache
   - mysql
-  - jboss
-  - keycloak
-  - git
-  - oracle
+  - mysql
   - some-erp
   - vmware
   - aws
@@ -233,9 +226,9 @@ data_assets:
   Database Customizing and Dumps:
     id: db-dumps
     description: Data for customizing of the DB system, which might include full database dumps.
-    usage: devops # values: business, devops
+    usage: business # values: business, devops
     tags:
-      - oracle
+      - mysql
     origin: Shashank
     owner: Shashank
     quantity: very-few # values: very-few, few, many, very-many
@@ -414,7 +407,6 @@ technical_assets:
     technology: web-server # values: see help
     tags:
       - linux
-      - apache
       - aws:ec2
     internet: false
     machine: container # values: physical, virtual, container, serverless
@@ -493,8 +485,6 @@ technical_assets:
     technology: identity-provider # values: see help
     tags:
       - linux
-      - jboss
-      - keycloak
     internet: false
     machine: virtual # values: physical, virtual, container, serverless
     encryption: none # values: none, transparent, data-with-symmetric-shared-key, data-with-asymmetric-shared-key, data-with-enduser-individual-key
@@ -814,7 +804,6 @@ trust_boundaries:
     type: network-on-prem # values: see help
     tags:
     technical_assets_inside: # sequence of IDs to reference
-      # - git-repo
       - internet-gateway
       - app-server
     trust_boundaries_nested: # sequence of IDs to reference
@@ -896,7 +885,7 @@ risk_tracking:
     date: 2023-12-27
     checked_by: Shashank Sanap
 
-  ldap-injection@*@ldap-auth-server@*: # wildcards "*" between the @ characters are possible
+  ldap-injection@*: # wildcards "*" between the @ characters are possible
     status: unchecked # values: unchecked, in-discussion, accepted, in-progress, mitigated, false-positive
     justification: The hardening measures were unchecked
     ticket: a-1

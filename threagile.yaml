@@ -75,10 +75,9 @@ tags_available:
 
 data_assets:
 
-
   Data Transfer: &data-transfer # this example shows the inheritance-like features of YAML
     id: data-transfer
-    description: Data Transfer (PDF)
+    description: Data Transfer
     usage: business # values: business, devops
     tags:
     origin: Customer
@@ -88,45 +87,20 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: operational # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Contract data might contain financial data as well as personally identifiable information (PII). The integrity and
-      availability of contract data is required for clearing payment disputes.
+      data transfer might contain financial data as well as personally identifiable information (PII).
 
-
-  # Customer Contract Summaries:
-  #   <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
-  #   id: contract-summaries
-  #   description: Customer Contract Summaries
-  #   quantity: very-few # values: very-few, few, many, very-many
-  #   confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
-  #   integrity: operational # values: archive, operational, important, critical, mission-critical
-  #   availability: operational # values: archive, operational, important, critical, mission-critical
-  #   justification_cia_rating: >
-  #     Just some summaries.
-
-
-  Customer Operational Data:
+  Internet Data Transfer:
     <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
-    id: customer-operational-data
-    description: Customer Operational Data
-    availability: critical # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      Customer operational data for using the portal are required to be available to offer the portal functionality
-      and are used in the backend transactions.
-
-
-  Customer Accounts:
-    <<: *data-transfer # here we're referencing the above created asset as base and just overwrite few values
-    id: customer-accounts
-    description: Customer Accounts (including transient credentials when entered for checking them)
+    id: internet-data-transfer
+    description: Internet Data Transfer (including transient credentials when entered for checking them)
     confidentiality: strictly-confidential # values: public, internal, restricted, confidential, strictly-confidential
     availability: critical # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Customer account data for using the portal are required to be available to offer the portal functionality.
+      Internet data transfer used to be available to offer the internet functionality.
 
-
-  Some Internal Business Data:
-    id: internal-business-data
-    description: Internal business data of the ERP system used unrelated to the customer-facing processes.
+  Database Data Transfer:
+    id: database-data-transfer
+    description: Database data transfer of the system used to the transfer data between resources.
     usage: business # values: business, devops
     tags:
     origin: Shashank
@@ -136,13 +110,12 @@ data_assets:
     integrity: critical # values: archive, operational, important, critical, mission-critical
     availability: critical # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      Data used and/or generated during unrelated other usecases of the Private-Subnet (when used also by Shashank for
-      internal non-customer-portal-related stuff).
+      Data used and/or generated when application running like db-instance - mysql
 
 
   Client Application Code: &client-application-code # this example shows the inheritance-like features of YAML
     id: client-application-code
-    description: Angular and other client-side code delivered by the application.
+    description: client-side code delivered by the application.
     usage: devops # values: business, devops
     tags:
     origin: shashank
@@ -164,34 +137,33 @@ data_assets:
     integrity: mission-critical # values: archive, operational, important, critical, mission-critical
     availability: important # values: archive, operational, important, critical, mission-critical
     justification_cia_rating: >
-      The integrity of the API code is critical to avoid reputational damage and the availability is important on the
-      long-term scale (but not critical) to keep the growth rate of the customer base steady.
+      The integrity of the API code is critical to avoid reputational damage and the availability is important.
 
 
-  Build Job Config:
-    id: build-job-config
-    description: Data for customizing of the build job system.
-    usage: devops # values: business, devops
-    tags:
-    origin: Shashank
-    owner: Shashank
-    quantity: very-few # values: very-few, few, many, very-many
-    confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: operational # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      Data for customizing of the build job system.
+  # Build Job Config:
+  #   id: build-job-config
+  #   description: Data for customizing of the build job system.
+  #   usage: devops # values: business, devops
+  #   tags:
+  #   origin: Shashank
+  #   owner: Shashank
+  #   quantity: very-few # values: very-few, few, many, very-many
+  #   confidentiality: restricted # values: public, internal, restricted, confidential, strictly-confidential
+  #   integrity: critical # values: archive, operational, important, critical, mission-critical
+  #   availability: operational # values: archive, operational, important, critical, mission-critical
+  #   justification_cia_rating: >
+  #     Data for customizing of the build job system.
 
 
-  Marketing Material:
-    <<: *client-application-code # here we're referencing the above created asset as base and just overwrite few values
-    id: marketing-material
-    description: Website and marketing data to inform potential customers and generate new leads.
-    integrity: important # values: archive, operational, important, critical, mission-critical
+  # Marketing Material:
+  #   <<: *client-application-code # here we're referencing the above created asset as base and just overwrite few values
+  #   id: marketing-material
+  #   description: Website and marketing data to inform potential customers and generate new leads.
+  #   integrity: important # values: archive, operational, important, critical, mission-critical
 
 
-  ERP Logs:
-    id: erp-logs
+  App server logs:
+    id: app-server-logs
     description: Logs generated by the ERP system.
     usage: devops # values: business, devops
     tags:
@@ -206,19 +178,19 @@ data_assets:
       transactional logs.
 
 
-  ERP Customizing Data:
-    id: erp-customizing
-    description: Data for customizing of the ERP system.
-    usage: devops # values: business, devops
-    tags:
-    origin: Shashank
-    owner: Shashank
-    quantity: very-few # values: very-few, few, many, very-many
-    confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
-    integrity: critical # values: archive, operational, important, critical, mission-critical
-    availability: critical # values: archive, operational, important, critical, mission-critical
-    justification_cia_rating: >
-      Data for customizing of the ERP system.
+  # ERP Customizing Data:
+  #   id: erp-customizing
+  #   description: Data for customizing of the ERP system.
+  #   usage: devops # values: business, devops
+  #   tags:
+  #   origin: Shashank
+  #   owner: Shashank
+  #   quantity: very-few # values: very-few, few, many, very-many
+  #   confidentiality: confidential # values: public, internal, restricted, confidential, strictly-confidential
+  #   integrity: critical # values: archive, operational, important, critical, mission-critical
+  #   availability: critical # values: archive, operational, important, critical, mission-critical
+  #   justification_cia_rating: >
+  #     Data for customizing of the ERP system.
 
 
   Database Customizing and Dumps:
@@ -265,8 +237,8 @@ technical_assets:
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
       - data-transfer
-      - internal-business-data
-      - erp-logs
+      - database-data-transfer
+      - app-server-logs
     data_assets_stored: # sequence of IDs to reference
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
@@ -283,10 +255,10 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - internal-business-data
+          - database-data-transfer
         data_assets_received: # sequence of IDs to reference
           - data-transfer
-          - internal-business-data
+          - database-data-transfer
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
   
@@ -315,7 +287,7 @@ technical_assets:
     redundant: false
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
-      - erp-logs
+      - app-server-logs
     data_assets_stored: # sequence of IDs to reference
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
@@ -331,9 +303,9 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - erp-customizing
+          # - erp-customizing
         data_assets_received: # sequence of IDs to reference
-          - erp-logs
+          - app-server-logs
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
       User Management Access:
@@ -348,9 +320,9 @@ technical_assets:
         readonly: false
         usage: devops # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
+          - internet-data-transfer
         data_assets_received: # sequence of IDs to reference
-          - customer-accounts
+          - internet-data-transfer
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
 
@@ -381,10 +353,9 @@ technical_assets:
     redundant: false
     custom_developed_parts: true
     data_assets_processed: # sequence of IDs to reference
-      - customer-accounts
-      - customer-operational-data
+      - internet-data-transfer
       - data-transfer
-      - internal-business-data
+      - database-data-transfer
       - client-application-code
       - server-application-code
     data_assets_stored: # sequence of IDs to reference
@@ -406,14 +377,12 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
+          - internet-data-transfer
+          - database-data-transfer
         data_assets_received: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
+          - internet-data-transfer
           - data-transfer
-          - internal-business-data
+          - database-data-transfer
         #diagram_tweak_weight: 5
         #diagram_tweak_constraint: false
       Subnet to Route table connection :
@@ -428,7 +397,7 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
+          - internet-data-transfer
         data_assets_received: # sequence of IDs to reference
 
 
@@ -458,7 +427,7 @@ technical_assets:
     redundant: false
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
-      - customer-accounts
+      - internet-data-transfer
     data_assets_stored: # sequence of IDs to reference
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
@@ -489,10 +458,9 @@ technical_assets:
     redundant: false
     custom_developed_parts: true
     data_assets_processed: # sequence of IDs to reference
-      - marketing-material
-      - customer-accounts
+      - internet-data-transfer
     data_assets_stored: # sequence of IDs to reference
-      - marketing-material
+      # - marketing-material
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
 
@@ -523,13 +491,11 @@ technical_assets:
     redundant: true
     custom_developed_parts: false
     data_assets_processed: # sequence of IDs to reference
-      - customer-accounts
-      - customer-operational-data
+      - internet-data-transfer
       - data-transfer
-      - internal-business-data
-      - erp-customizing
+      - database-data-transfer
     data_assets_stored: # sequence of IDs to reference
-      - erp-logs
+      - app-server-logs
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
       - xml
       - file
@@ -547,13 +513,11 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
+          - internet-data-transfer
+          - database-data-transfer
         data_assets_received: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
+          - internet-data-transfer
+          - database-data-transfer
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
 
@@ -621,9 +585,8 @@ technical_assets:
     data_assets_processed: # sequence of IDs to reference
       - db-dumps
     data_assets_stored: # sequence of IDs to reference
-      - customer-accounts
-      - customer-operational-data
-      - internal-business-data
+      - internet-data-transfer
+      - database-data-transfer
     data_formats_accepted: # sequence of formats like: json, xml, serialization, file, csv
     communication_links:
       Database Traffic:
@@ -638,13 +601,11 @@ technical_assets:
         readonly: false
         usage: business # values: business, devops
         data_assets_sent: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
+          - internet-data-transfer
+          - database-data-transfer
         data_assets_received: # sequence of IDs to reference
-          - customer-accounts
-          - customer-operational-data
-          - internal-business-data
+          - internet-data-transfer
+          - database-data-transfer
         #diagram_tweak_weight: 1
         #diagram_tweak_constraint: false
 

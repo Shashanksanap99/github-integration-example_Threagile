@@ -556,7 +556,7 @@ trust_boundaries:
     technical_assets_inside: 
       - Private-Subnet
       - db-instance
-      - sql-database
+      # - sql-database
     trust_boundaries_nested: 
 
   Application Network:
